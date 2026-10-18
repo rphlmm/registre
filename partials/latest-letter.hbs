@@ -1,0 +1,38 @@
+{{!-- Encadré « Dernière lettre ». Contexte : un post. --}}
+<section class="rg-latest" aria-labelledby="rg-latest-title">
+    <div class="rg-latest__body">
+        <p class="rg-latest__kicker">
+            <span class="rg-label rg-label--accent">§ {{t "Latest letter"}}</span>
+            <span class="rg-latest__meta">{{date format="[S]WW"}} · <time datetime="{{date format="YYYY-MM-DD"}}">{{date format="DD.MM.YYYY"}}</time> · {{reading_time minute=(t "1 min") minutes=(t "% min")}}</span>
+            <span class="rg-badge" data-rg-new data-rg-date="{{date format="YYYY-MM-DD"}}" hidden>{{t "new"}}</span>
+        </p>
+        <h2 class="rg-latest__title" id="rg-latest-title"><a href="{{url}}">{{title}}</a></h2>
+        {{#if custom_excerpt}}
+            {{#match custom_excerpt "~" ";"}}
+                <div class="rg-toc">
+                    <p class="rg-label">{{t "In this letter"}}</p>
+                    <ol class="rg-toc__list">
+                        {{#foreach (split custom_excerpt separator=";")}}
+                            <li>{{this}}</li>
+                        {{/foreach}}
+                    </ol>
+                </div>
+            {{else}}
+                <p class="rg-latest__excerpt">{{custom_excerpt}}</p>
+            {{/match}}
+        {{else}}
+            <p class="rg-latest__excerpt">{{excerpt words="40"}}</p>
+        {{/if}}
+        <div class="rg-latest__foot">
+            {{#if tags}}
+                <ul class="rg-chips" aria-label="{{t "Topics"}}">
+                    {{#foreach tags}}<li><a class="rg-chip" href="{{url}}">{{name}}</a></li>{{/foreach}}
+                </ul>
+            {{/if}}
+            <a class="rg-btn" href="{{url}}">{{t "Read the letter"}} <span aria-hidden="true">→</span></a>
+        </div>
+    </div>
+    {{#if @custom.afficher_les_figures}}
+        <div class="rg-latest__fig">{{> "figure"}}</div>
+    {{/if}}
+</section>

@@ -1,0 +1,13 @@
+{{!-- Métadonnées bibliographiques lues par Zotero (traducteur « Embedded Metadata ») et Google Scholar.
+     Contexte : un post. --}}
+<meta name="citation_title" content="{{title}}">
+{{#foreach authors}}<meta name="citation_author" content="{{name}}">
+{{/foreach}}<meta name="citation_publication_date" content="{{date format="YYYY/MM/DD"}}">
+<meta name="citation_language" content="{{@site.locale}}">
+<meta name="DC.title" content="{{title}}">
+{{#foreach authors}}<meta name="DC.creator" content="{{name}}">
+{{/foreach}}<meta name="DC.date" content="{{date format="YYYY-MM-DD"}}">
+<meta name="DC.publisher" content="{{@site.title}}">
+<meta name="DC.language" content="{{@site.locale}}">
+<meta name="DC.type" content="Text">
+<meta name="DC.identifier" content="{{url absolute="true"}}">

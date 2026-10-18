@@ -1,0 +1,10 @@
+{{!-- Lien vers la page « Archives » si elle existe (page Ghost dont le slug est « archives »,
+     de préférence avec le modèle « Archives »). --}}
+{{#get "pages" filter="slug:archives" limit="1"}}
+    {{#foreach pages}}
+        <div class="rg-side__block">
+            <p class="rg-side__title">§ {{t "Archives"}}</p>
+            <a class="rg-side__more" href="{{url}}">{{t "All letters, with filters"}} <span aria-hidden="true">→</span></a>
+        </div>
+    {{/foreach}}
+{{/get}}

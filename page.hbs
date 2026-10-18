@@ -1,24 +1,30 @@
 {{!< default}}
 
 {{#post}}
-
-<header class="gh-header">
-    <h1>{{title}}</h1>
-    {{#if feature_image}}
-    <img class="gh-feature-image"
-        srcset="{{img_url feature_image size="s"}} 300w,
-                {{img_url feature_image size="m"}} 600w,
-                {{img_url feature_image size="l"}} 1000w,
-                {{img_url feature_image size="xl"}} 2000w"
-        sizes="(min-width: 2000px) 2000px"
-        src="{{img_url feature_image size="xl"}}"
-        alt="{{title}}"
-    />
-    {{/if}}
-</header>
-
-<section class="gh-content">
-    {{content}}
-</section>
-
+<article class="rg-page {{post_class}}">
+    {{#match @page.show_title_and_feature_image}}
+        <header class="rg-wrap rg-page__header">
+            <p class="rg-crumbs"><a href="{{@site.url}}">§ {{@site.title}}</a></p>
+            <h1 class="rg-page__title">{{title}}</h1>
+            {{#if custom_excerpt}}<p class="rg-article__standfirst">{{custom_excerpt}}</p>{{/if}}
+        </header>
+        {{#if feature_image}}
+            <figure class="rg-wrap rg-article__image">
+                <img
+                    srcset="{{img_url feature_image size="m"}} 600w,
+                            {{img_url feature_image size="l"}} 1200w,
+                            {{img_url feature_image size="xl"}} 2000w"
+                    sizes="(min-width: 1360px) 1280px, 100vw"
+                    src="{{img_url feature_image size="l"}}"
+                    alt="{{#if feature_image_alt}}{{feature_image_alt}}{{else}}{{title}}{{/if}}">
+                {{#if feature_image_caption}}<figcaption>{{feature_image_caption}}</figcaption>{{/if}}
+            </figure>
+        {{/if}}
+    {{/match}}
+    <div class="rg-wrap rg-page__grid">
+        <div class="gh-content rg-prose">
+            {{content}}
+        </div>
+    </div>
+</article>
 {{/post}}

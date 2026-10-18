@@ -1,0 +1,23 @@
+{{#if @site.members_enabled}}{{#unless @site.members_invite_only}}{{#unless @member}}{{#if @custom.titre_abonnement}}
+<section class="rg-subscribe" id="abonnement" aria-labelledby="rg-subscribe-title">
+    <div class="rg-wrap rg-subscribe__inner">
+        <div class="rg-subscribe__text">
+            <p class="rg-label rg-label--accent">§ {{t "Subscription"}}</p>
+            <h2 class="rg-subscribe__title" id="rg-subscribe-title">{{@custom.titre_abonnement}}</h2>
+            {{#if @custom.texte_abonnement}}<p class="rg-subscribe__sub">{{@custom.texte_abonnement}}</p>{{/if}}
+        </div>
+        <form class="rg-subscribe__form" data-members-form="subscribe">
+            <label class="rg-label" for="rg-subscribe-email">{{t "E-mail address"}}</label>
+            <div class="rg-subscribe__row">
+                <input class="rg-input" id="rg-subscribe-email" type="email" name="email" autocomplete="email" required data-members-email placeholder="{{t "you@example.com"}}">
+                <button class="rg-btn rg-btn--large" type="submit">
+                    <span class="rg-subscribe__default">{{t "Subscribe"}}</span>
+                    <span class="rg-subscribe__loading">{{t "Sending…"}}</span>
+                </button>
+            </div>
+            <p class="rg-subscribe__success">{{t "Check your inbox: a confirmation link is on its way."}}</p>
+            <p class="rg-subscribe__error" data-members-error></p>
+        </form>
+    </div>
+</section>
+{{/if}}{{/unless}}{{/unless}}{{/if}}

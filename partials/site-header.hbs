@@ -1,0 +1,35 @@
+<header class="rg-header">
+    <div class="rg-wrap rg-header__inner">
+        <div class="rg-header__left">
+            <a class="rg-brand" href="{{@site.url}}">
+                {{#if @site.logo}}
+                    <img class="rg-brand__logo" src="{{img_url @site.logo size="s"}}" alt="{{@site.title}}">
+                {{else}}
+                    <span class="rg-brand__name">{{@site.title}}</span>
+                {{/if}}
+                {{#if @custom.sous_titre}}<span class="rg-brand__tag">{{@custom.sous_titre}}</span>{{/if}}
+            </a>
+            {{#if @site.navigation}}
+                <nav class="rg-nav" aria-label="{{t "Main navigation"}}">
+                    {{navigation}}
+                </nav>
+            {{/if}}
+        </div>
+        <div class="rg-header__right">
+            <button class="rg-search" type="button" data-ghost-search>
+                {{> "icon-search"}}
+                <span>{{t "Search"}}</span>
+                <kbd class="rg-kbd" data-rg-kbd>⌘K</kbd>
+            </button>
+            {{#if @site.members_enabled}}
+                {{#if @member}}
+                    <a class="rg-btn rg-btn--ghost" href="#/portal/account" data-portal="account">{{t "Account"}}</a>
+                {{else}}
+                    {{#unless @site.members_invite_only}}
+                        <a class="rg-btn" href="#/portal/signup" data-portal="signup">{{t "Subscribe"}}</a>
+                    {{/unless}}
+                {{/if}}
+            {{/if}}
+        </div>
+    </div>
+</header>

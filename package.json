@@ -1,7 +1,7 @@
 {
-    "name": "zap",
-    "description": "An ultra-minimal theme for ghost",
-    "demo": "https://zap.ghost.io",
+    "name": "registre",
+    "description": "Thème Ghost d’interlettre : un index dense à l’encre bleue pour une veille hebdomadaire. Dérivé de Zap.",
+    "demo": "https://interlettre.info",
     "version": "1.0.0",
     "packageManager": "pnpm@12.14.0+sha512.c18ba6d87993d3d164cb5e8948f32b2c06ee854487e06cd8d86781342fb3e5bb4634367034711e86802baa9c37bea906ce1929ad08d70884c97d801df13389a6",
     "engines": {
@@ -9,42 +9,37 @@
     },
     "license": "MIT",
     "screenshots": {
-        "desktop": "assets/screenshot-desktop.jpg"
+        "desktop": "assets/screenshot-desktop.jpg",
+        "mobile": "assets/screenshot-mobile.jpg"
     },
     "scripts": {
-        "zip": "mkdir -p dist && bestzip dist/$npm_package_name.zip assets/* *.hbs package.json",
+        "zip": "mkdir -p dist && bestzip dist/$npm_package_name.zip assets/* partials/* locales/* *.hbs package.json LICENSE README.md",
         "pretest": "pnpm run zip",
         "test": "gscan ."
     },
     "author": {
-        "name": "Ghost Foundation",
-        "email": "hello@ghost.org",
-        "url": "https://ghost.org"
+        "name": "Raphaël Martin",
+        "email": "itsraphaelmartin@gmail.com",
+        "url": "https://interlettre.info"
     },
-    "gpm": {
-        "type": "theme",
-        "categories": [
-            "Minimal",
-            "Magazine"
-        ]
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/rphlmm/registre.git"
     },
+    "bugs": "https://github.com/rphlmm/registre/issues",
     "keywords": [
         "ghost",
         "theme",
-        "ghost-theme"
+        "ghost-theme",
+        "newsletter",
+        "veille"
     ],
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/TryGhost/zap.git"
-    },
-    "bugs": "https://github.com/TryGhost/zap/issues",
-    "contributors": "https://github.com/TryGhost/zap/graphs/contributors",
     "devDependencies": {
         "bestzip": "4.0.3",
         "gscan": "6.6.1"
     },
     "config": {
-        "posts_per_page": 15,
+        "posts_per_page": 20,
         "image_sizes": {
             "xxs": {
                 "width": 30
@@ -63,6 +58,69 @@
             },
             "xl": {
                 "width": 2000
+            }
+        },
+        "card_assets": {
+            "exclude": [
+                "bookmark",
+                "callout"
+            ]
+        },
+        "custom": {
+            "sous_titre": {
+                "type": "text",
+                "default": "veille hebdo",
+                "description": "Court texte affiché à côté du nom du site dans l’en-tête."
+            },
+            "licence": {
+                "type": "text",
+                "default": "",
+                "description": "Mention de licence en pied de page (ex. CC BY 4.0). Vide : aucune mention."
+            },
+            "afficher_les_figures": {
+                "type": "boolean",
+                "default": true,
+                "description": "Figure générée pour chaque lettre : un rayon par minute, un cercle par rubrique."
+            },
+            "jour_de_parution": {
+                "type": "text",
+                "default": "dimanche",
+                "group": "homepage",
+                "description": "Jour de parution affiché sous le titre de l’accueil. Vide : ligne masquée."
+            },
+            "densite_de_l_index": {
+                "type": "select",
+                "options": [
+                    "Confortable",
+                    "Compacte"
+                ],
+                "default": "Confortable",
+                "group": "homepage",
+                "description": "Hauteur des lignes dans les listes de lettres."
+            },
+            "titre_abonnement": {
+                "type": "text",
+                "default": "Recevoir la lettre le dimanche",
+                "group": "homepage",
+                "description": "Titre du bloc d’abonnement (accueil et lettres). Vide : bloc masqué."
+            },
+            "texte_abonnement": {
+                "type": "text",
+                "default": "Un e-mail par semaine. Désinscription en un clic.",
+                "group": "homepage",
+                "description": "Phrase sous le titre du bloc d’abonnement."
+            },
+            "numeroter_les_sections": {
+                "type": "boolean",
+                "default": true,
+                "group": "post",
+                "description": "Numérote automatiquement les intertitres (01, 02, 03…) dans les lettres."
+            },
+            "auteur_pour_citation": {
+                "type": "text",
+                "default": "",
+                "group": "post",
+                "description": "Auteur tel qu’il apparaît dans la citation (ex. Martin, R.). Vide : calculé."
             }
         }
     }

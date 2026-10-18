@@ -1,0 +1,6 @@
+{{!-- Remplace le gabarit par défaut du helper {{navigation}} : ajoute aria-current sur l'entrée active. --}}
+<ul class="rg-navlist{{#if isSecondary}} rg-navlist--secondary{{/if}}">
+    {{#foreach navigation}}
+        <li class="{{link_class for=(url) class=(concat "nav-" slug)}}"><a href="{{url absolute="true"}}"{{#if current}} aria-current="page"{{/if}}>{{label}}</a></li>
+    {{/foreach}}
+</ul>

@@ -1,0 +1,17 @@
+{{!-- Bloc « Citer cette lettre » (APA, 7e éd.) et export BibTeX. Contexte : un post. --}}
+<section class="rg-cite" id="citer" aria-labelledby="rg-cite-title"
+    data-rg-cite
+    data-title="{{title}}"
+    data-author="{{primary_author.name}}"
+    data-date="{{date format="YYYY-MM-DD"}}"
+    data-site="{{@site.title}}"
+    data-week="{{date format="[S]WW"}}"
+    data-url="{{url absolute="true"}}"
+    data-slug="{{slug}}">
+    <h2 class="rg-side__title" id="rg-cite-title">§ {{t "Cite this letter"}}</h2>
+    <p class="rg-cite__text" data-rg-cite-text><span {{#unless @custom.auteur_pour_citation}}data-rg-cite-auto{{/unless}}>{{#if @custom.auteur_pour_citation}}{{@custom.auteur_pour_citation}}{{else}}{{primary_author.name}}{{/if}}</span> ({{date format="YYYY, D MMMM"}}). <em>{{title}}</em>. {{@site.title}}, {{date format="[S]WW"}}. {{url absolute="true"}}</p>
+    <div class="rg-cite__actions" data-rg-cite-actions hidden>
+        <button class="rg-btn" type="button" data-rg-copy-cite>{{t "Copy (APA)"}}</button>
+        <button class="rg-btn rg-btn--ghost" type="button" data-rg-bibtex>BibTeX</button>
+    </div>
+</section>

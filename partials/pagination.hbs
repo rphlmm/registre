@@ -1,0 +1,10 @@
+{{!-- Remplace le gabarit par défaut du helper {{pagination}}. --}}
+{{#match pages ">" 1}}
+<nav class="rg-pagination" aria-label="{{t "Pagination"}}">
+    <span class="rg-pagination__info">{{t "Page {page} of {totalPages}" page=page totalPages=pages}}</span>
+    <span class="rg-pagination__links">
+        {{#if prev}}<a class="rg-btn rg-btn--ghost" href="{{page_url prev}}" rel="prev"><span aria-hidden="true">←</span> {{t "Newer letters"}}</a>{{/if}}
+        {{#if next}}<a class="rg-btn rg-btn--ghost" href="{{page_url next}}" rel="next">{{t "Older letters"}} <span aria-hidden="true">→</span></a>{{/if}}
+    </span>
+</nav>
+{{/match}}

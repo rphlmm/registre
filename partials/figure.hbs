@@ -1,0 +1,8 @@
+{{!-- Figure générée côté navigateur (assets/js/registre.js) : un rayon par minute de lecture, un cercle par rubrique.
+     Contexte : un post. Paramètre facultatif : size="small". --}}
+{{#if @custom.afficher_les_figures}}
+<figure class="rg-fig{{#if size}} rg-fig--{{size}}{{/if}}" data-rg-fig data-seed="{{slug}}" data-minutes="{{reading_time minute="1" minutes="%"}}" data-tags="{{#foreach tags}}{{slug}} {{/foreach}}" hidden>
+    <svg class="rg-fig__svg" viewBox="0 0 200 200" aria-hidden="true" focusable="false"></svg>
+    <figcaption class="rg-fig__cap">{{t "Fig."}} {{date format="W"}}<span class="rg-fig__legend" data-rg-fig-legend></span></figcaption>
+</figure>
+{{/if}}

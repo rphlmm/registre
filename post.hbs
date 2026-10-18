@@ -1,27 +1,135 @@
 {{!< default}}
 
+{{#contentFor "head"}}{{#post}}{{> "citation-meta"}}{{/post}}{{/contentFor}}
+
 {{#post}}
+<article class="rg-article {{post_class}}">
+    <header class="rg-wrap rg-article__header rg-rule-bottom">
+        <nav class="rg-crumbs" aria-label="{{t "Breadcrumb"}}">
+            <a href="{{@site.url}}">§ {{@site.title}}</a>
+            <span aria-hidden="true">/</span>
+            <span>{{date format="GGGG"}}</span>
+            <span aria-hidden="true">/</span>
+            <span class="rg-crumbs__current" aria-current="page">{{date format="[S]WW"}}</span>
+        </nav>
+        <h1 class="rg-article__title">{{title}}</h1>
+        {{#if custom_excerpt}}
+            <p class="rg-article__standfirst">{{#foreach (split custom_excerpt separator=";")}}{{this}}{{#unless @last}} · {{/unless}}{{/foreach}}</p>
+        {{/if}}
+    </header>
 
-<header class="gh-header">
-    <h1>{{title}}</h1>
-    <div class="gh-post-meta">
-        {{primary_author.name}} - <time datetime="{{date format="YYYY-MM-DD"}}">{{date format="D MMM YYYY"}}</time>
-    </div>
     {{#if feature_image}}
-    <img class="gh-feature-image"
-        srcset="{{img_url feature_image size="s"}} 300w,
-                {{img_url feature_image size="m"}} 600w,
-                {{img_url feature_image size="l"}} 1000w,
-                {{img_url feature_image size="xl"}} 2000w"
-        sizes="(min-width: 2000px) 2000px"
-        src="{{img_url feature_image size="xl"}}"
-        alt="{{title}}"
-    />
+        <figure class="rg-wrap rg-article__image">
+            <img
+                srcset="{{img_url feature_image size="m"}} 600w,
+                        {{img_url feature_image size="l"}} 1200w,
+                        {{img_url feature_image size="xl"}} 2000w"
+                sizes="(min-width: 1360px) 1280px, 100vw"
+                src="{{img_url feature_image size="l"}}"
+                alt="{{#if feature_image_alt}}{{feature_image_alt}}{{else}}{{title}}{{/if}}">
+            {{#if feature_image_caption}}<figcaption>{{feature_image_caption}}</figcaption>{{/if}}
+        </figure>
     {{/if}}
-</header>
 
-<section class="gh-content">
-    {{content}}
-</section>
+    <div class="rg-wrap rg-article__grid">
+        <aside class="rg-article__meta" aria-label="{{t "About this letter"}}">
+            <dl class="rg-meta">
+                <div class="rg-meta__item rg-meta__item--strong">
+                    <dt>{{t "Week"}}</dt>
+                    <dd>{{date format="[S]WW · GGGG"}}</dd>
+                </div>
+                <div class="rg-meta__item">
+                    <dt>{{t "Published"}}</dt>
+                    <dd><time datetime="{{date format="YYYY-MM-DD"}}">{{date format="DD.MM.YYYY"}}</time></dd>
+                </div>
+                {{#if authors}}
+                    <div class="rg-meta__item">
+                        <dt>{{#has author="count:>1"}}{{t "Authors"}}{{else}}{{t "Author"}}{{/has}}</dt>
+                        <dd>{{authors separator=", "}}</dd>
+                    </div>
+                {{/if}}
+                <div class="rg-meta__item">
+                    <dt>{{t "Reading"}}</dt>
+                    <dd>{{reading_time minute=(t "1 min") minutes=(t "% min")}}</dd>
+                </div>
+                {{#if tags}}
+                    <div class="rg-meta__item">
+                        <dt>{{t "Topics"}}</dt>
+                        <dd class="rg-meta__tags">{{#foreach tags}}<a href="{{url}}">{{name}}</a>{{/foreach}}</dd>
+                    </div>
+                {{/if}}
+            </dl>
+        </aside>
 
+        <aside class="rg-article__side" aria-label="{{t "Tools"}}">
+            <div class="rg-side__block rg-tools" data-rg-tools hidden>
+                <p class="rg-side__title">§ {{t "Tools"}}</p>
+                <button class="rg-tool" type="button" data-rg-copy-links hidden>
+                    <span data-rg-copy-links-label>{{t "Copy the links"}}</span><span aria-hidden="true">⧉</span>
+                </button>
+                <a class="rg-tool" href="#citer"><span>{{t "Cite this letter"}}</span><span aria-hidden="true">↓</span></a>
+                <button class="rg-tool" type="button" data-rg-bibtex><span>{{t "Export as BibTeX"}}</span><span aria-hidden="true">↧</span></button>
+            </div>
+
+            <div class="rg-side__block">
+                <p class="rg-side__title">§ {{t "Share"}}</p>
+                <ul class="rg-share">
+                    <li><a href="https://bsky.app/intent/compose?text={{encode title}}%20{{encode (url absolute="true")}}" target="_blank" rel="noopener">Bluesky</a></li>
+                    <li><button class="rg-linkbtn" type="button" data-rg-copy-url hidden>{{t "Copy the URL"}}</button></li>
+                    <li><button class="rg-linkbtn" type="button" data-rg-share hidden>{{t "More…"}}</button></li>
+                </ul>
+            </div>
+
+            <div class="rg-side__block rg-linkindex" data-rg-linkindex hidden>
+                <p class="rg-side__title">§ {{t "Links in this letter"}}</p>
+                <ol class="rg-linkindex__list" data-rg-linkindex-list></ol>
+            </div>
+
+            {{> "figure" size="small"}}
+        </aside>
+
+        <div class="rg-article__body">
+            <div class="gh-content rg-prose">
+                {{content}}
+            </div>
+            {{> "cite"}}
+            {{#if @site.comments_enabled}}<div class="rg-comments">{{comments}}</div>{{/if}}
+        </div>
+    </div>
+</article>
+
+<nav class="rg-wrap rg-adjacent" aria-label="{{t "Neighbouring letters"}}">
+    {{#prev_post}}
+        <a class="rg-adjacent__item" href="{{url}}" rel="prev">
+            <span class="rg-label">← {{t "Previous letter"}} · {{date format="[S]WW"}}</span>
+            <span class="rg-adjacent__title">{{title}}</span>
+        </a>
+    {{else}}
+        <span class="rg-adjacent__item is-empty"></span>
+    {{/prev_post}}
+    {{#next_post}}
+        <a class="rg-adjacent__item rg-adjacent__item--next" href="{{url}}" rel="next">
+            <span class="rg-label">{{t "Next letter"}} · {{date format="[S]WW"}} →</span>
+            <span class="rg-adjacent__title">{{title}}</span>
+        </a>
+    {{else}}
+        <span class="rg-adjacent__item rg-adjacent__item--next is-empty">
+            <span class="rg-label">{{t "Next letter"}} →</span>
+            <span class="rg-adjacent__title">{{t "Coming soon"}}</span>
+        </span>
+    {{/next_post}}
+</nav>
+
+{{#if primary_tag}}
+    {{#get "posts" filter="tags:{{primary_tag.slug}}+id:-{{id}}" limit="3" include="tags" as |related|}}
+        {{#if related}}
+            <section class="rg-wrap rg-related" aria-labelledby="rg-related-title">
+                <h2 class="rg-side__title" id="rg-related-title">§ {{t "In the same topic"}}</h2>
+                <ol class="rg-index rg-index--compact">
+                    {{#foreach related}}{{> "letter-row"}}{{/foreach}}
+                </ol>
+            </section>
+        {{/if}}
+    {{/get}}
+{{/if}}
 {{/post}}

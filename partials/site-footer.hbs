@@ -1,0 +1,33 @@
+{{> "subscribe"}}
+
+<footer class="rg-footer">
+    <div class="rg-wrap rg-footer__grid">
+        <div class="rg-footer__col">
+            <a class="rg-brand rg-brand--footer" href="{{@site.url}}"><span class="rg-brand__name">{{@site.title}}</span></a>
+            {{#if @site.description}}<p class="rg-footer__desc">{{@site.description}}</p>{{/if}}
+        </div>
+        {{#if @site.secondary_navigation}}
+            <nav class="rg-footer__col" aria-label="{{t "Secondary navigation"}}">
+                <p class="rg-label">§ {{t "Read"}}</p>
+                {{navigation type="secondary"}}
+            </nav>
+        {{/if}}
+        <div class="rg-footer__col">
+            <p class="rg-label">§ {{t "Follow"}}</p>
+            <ul class="rg-footer__list">
+                <li><a href="{{@site.url}}/rss/">{{t "RSS feed"}}</a></li>
+                {{#if @site.members_enabled}}{{#unless @site.members_invite_only}}
+                    <li><a href="#/portal/signup" data-portal="signup">{{t "Letter by e-mail"}}</a></li>
+                {{/unless}}{{/if}}
+            </ul>
+        </div>
+        <div class="rg-footer__col">
+            <p class="rg-label">§ {{t "Colophon"}}</p>
+            <p class="rg-footer__desc">{{t "Registre theme for Ghost."}}</p>
+        </div>
+    </div>
+    <div class="rg-wrap rg-footer__bottom rg-rule-top">
+        <span>© {{date format="YYYY"}} {{@site.title}}{{#if @custom.licence}} · {{@custom.licence}}{{/if}}</span>
+        <a href="{{@site.url}}">{{readable_url @site.url}}</a>
+    </div>
+</footer>

@@ -1,0 +1,27 @@
+{{!-- Liste des rubriques (étiquettes publiques) avec nombre de lettres.
+     Paramètre filter=true : cases à cocher pour filtrer l'index côté navigateur (page Archives).
+     Sans JavaScript, les cases restent masquées et la liste de liens s'affiche.
+     Paramètre current=<slug> : met en évidence la rubrique en cours (page de rubrique). --}}
+<div class="rg-side__block">
+    <p class="rg-side__title" id="rg-rubriques-title">§ {{t "Topics"}}</p>
+    {{#get "tags" limit="100" filter="visibility:public" include="count.posts" order="count.posts desc"}}
+        {{#if ../filter}}
+            <fieldset class="rg-filter" data-rg-filter hidden>
+                <legend class="rg-sr">{{t "Filter by topic"}}</legend>
+                {{#foreach tags}}
+                    <label class="rg-filter__item">
+                        <input type="checkbox" value="{{slug}}" data-rg-filter-tag>
+                        <span class="rg-filter__name">{{name}}</span>
+                        <span class="rg-filter__count">{{count.posts}}</span>
+                    </label>
+                {{/foreach}}
+                <button class="rg-linkbtn" type="button" data-rg-filter-clear hidden>{{t "Clear"}}</button>
+            </fieldset>
+        {{/if}}
+        <ul class="rg-side__list{{#if ../filter}} rg-side__list--nojs{{/if}}" aria-labelledby="rg-rubriques-title">
+            {{#foreach tags}}
+                <li><a href="{{url}}"{{#if ../../current}}{{#match slug ../../current}} aria-current="page"{{/match}}{{/if}}><span>{{name}}</span><span class="rg-side__count">{{count.posts}}</span></a></li>
+            {{/foreach}}
+        </ul>
+    {{/get}}
+</div>

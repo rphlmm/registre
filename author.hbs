@@ -1,0 +1,31 @@
+{{!< default}}
+
+{{#author}}
+<section class="rg-wrap rg-hero rg-hero--small" aria-labelledby="rg-hero-title">
+    <p class="rg-crumbs"><a href="{{@site.url}}">§ {{@site.title}}</a> <span aria-hidden="true">/</span> {{t "Author"}}</p>
+    <h1 class="rg-hero__title rg-hero__title--md" id="rg-hero-title">{{name}}<sup class="rg-hero__count">({{../pagination.total}})</sup></h1>
+    <div class="rg-hero__aside">
+        {{#if bio}}<p class="rg-hero__desc">{{bio}}</p>{{/if}}
+        {{#if website}}<p class="rg-hero__desc"><a href="{{website}}" rel="me noopener">{{readable_url website}}</a></p>{{/if}}
+    </div>
+</section>
+{{/author}}
+
+<section class="rg-wrap rg-listing" aria-labelledby="rg-listing-title">
+    <aside class="rg-side" aria-label="{{t "Browse"}}">
+        {{> "rubriques"}}
+        {{> "archives-link"}}
+    </aside>
+    <div class="rg-listing__main">
+        <div class="rg-listing__head">
+            <h2 class="rg-listing__title" id="rg-listing-title">{{t "All letters"}}</h2>
+        </div>
+        {{> "letter-index"}}
+        <ol class="rg-index">
+            {{#foreach posts}}
+                {{> "letter-row"}}
+            {{/foreach}}
+        </ol>
+        {{pagination}}
+    </div>
+</section>

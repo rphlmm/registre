@@ -1,0 +1,40 @@
+{{!< default}}
+{{!-- Modèle « Archives » : à choisir dans les réglages d'une page Ghost (slug conseillé : archives).
+     Affiche toutes les lettres (jusqu'à 300) avec filtres par rubrique, par année et par titre. --}}
+
+{{#post}}
+<section class="rg-wrap rg-hero rg-hero--small" aria-labelledby="rg-hero-title">
+    <p class="rg-crumbs"><a href="{{@site.url}}">§ {{@site.title}}</a></p>
+    <h1 class="rg-hero__title rg-hero__title--md" id="rg-hero-title">{{title}}<sup class="rg-hero__count" data-rg-total></sup></h1>
+    {{#if custom_excerpt}}
+        <div class="rg-hero__aside"><p class="rg-hero__desc">{{custom_excerpt}}</p></div>
+    {{/if}}
+</section>
+{{/post}}
+
+<section class="rg-wrap rg-listing" aria-labelledby="rg-listing-title" data-rg-archive>
+    <aside class="rg-side" aria-label="{{t "Filters"}}">
+        {{> "rubriques" filter=true}}
+        <div class="rg-side__block" data-rg-years hidden>
+            <p class="rg-side__title" id="rg-years-title">§ {{t "Years"}}</p>
+            <ul class="rg-side__list" aria-labelledby="rg-years-title" data-rg-years-list></ul>
+        </div>
+    </aside>
+    <div class="rg-listing__main">
+        <div class="rg-listing__head">
+            <h2 class="rg-listing__title" id="rg-listing-title">{{t "All letters"}}</h2>
+            <div class="rg-textfilter" data-rg-textfilter hidden>
+                <label class="rg-sr" for="rg-q">{{t "Filter by title"}}</label>
+                <input class="rg-input rg-input--small" id="rg-q" type="search" placeholder="{{t "Filter by title…"}}" autocomplete="off" data-rg-q>
+            </div>
+            <p class="rg-listing__status" role="status" data-rg-status></p>
+        </div>
+        {{> "letter-index"}}
+        <ol class="rg-index" data-rg-index>
+            {{#get "posts" limit="100" page="1" include="tags"}}{{#foreach posts}}{{> "letter-row" archive=true}}{{/foreach}}{{/get}}
+            {{#get "posts" limit="100" page="2" include="tags"}}{{#foreach posts}}{{> "letter-row" archive=true}}{{/foreach}}{{/get}}
+            {{#get "posts" limit="100" page="3" include="tags"}}{{#foreach posts}}{{> "letter-row" archive=true}}{{/foreach}}{{/get}}
+        </ol>
+        <p class="rg-empty" data-rg-empty hidden>{{t "No letter matches these filters."}}</p>
+    </div>
+</section>

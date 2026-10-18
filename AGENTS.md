@@ -2,7 +2,7 @@
 
 ## Scope
 
-This repository is the ultra-minimal Ghost theme. Keep changes focused on theme source, generated assets, CI, and repo-level metadata for this repository.
+This repository is `registre`, the Ghost theme of interlettre (interlettre.info), forked from TryGhost/Zap. Keep changes focused on theme source, assets, translations, CI and repo-level metadata.
 
 ## Commands
 
@@ -10,15 +10,26 @@ Use pnpm for this repo, pinned by package.json.
 
 ```bash
 pnpm install --frozen-lockfile
-pnpm test
-pnpm zip
+pnpm test   # GScan
+pnpm zip    # dist/registre.zip
 ```
 
-Run the test command before opening a PR when theme files, generated assets, dependencies, or CI change.
+Run the test command before committing when templates, assets, translations, dependencies or CI change.
+
+## Conventions
+
+- Site name is always written in lowercase: "interlettre".
+- Light theme only: do not add a dark mode or `prefers-color-scheme: dark` styles.
+- Palette variables live at the top of `assets/css/screen.css`; keep text contrast at least 4.5:1 (body and secondary text currently AAA) and control borders at least 3:1.
+- Minimum UI text size is 13px (0.8125rem); body text is 19px in letters.
+- Template strings use `{{t "English key"}}`; add every new key to both `locales/en.json` and `locales/fr.json`.
+- No server-side custom helpers exist in Ghost themes: logic that Ghost helpers cannot express goes in `assets/js/registre.js`, as progressive enhancement.
+- Fonts are self-hosted in `assets/fonts/` (SIL OFL); do not load fonts from third-party hosts.
+
+## Local testing
+
+- Do not symlink this folder into a Ghost install located under the system temp directory (`/tmp`): when Ghost validates a theme there, GScan deletes ignored files (`.git`, `node_modules`, `AGENTS.md`, `CLAUDE.md`) through the symlink. Copy the folder instead, or keep Ghost outside `/tmp`.
 
 ## Boundaries
 
-- Edit source CSS, JavaScript, Handlebars templates, partials, and package metadata intentionally.
-- Keep generated assets/built/ files in sync when source assets change and the repo tracks those outputs.
-- Do not commit node_modules/, local Ghost content, generated zip files outside tracked release expectations, or secrets.
-- Repo settings, descriptions, and branch rules belong on the GitHub repository; internal clean-repos metadata stays in TryGhost/cleanrepos.
+- Do not commit node_modules/, local Ghost content, generated zip files (dist/) or secrets.

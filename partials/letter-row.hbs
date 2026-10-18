@@ -1,0 +1,12 @@
+{{!-- Une ligne de l'index. Contexte : un post. Paramètre facultatif : archive=true (données de filtrage). --}}
+<li class="rg-row {{post_class}}" data-rg-date="{{date format="YYYY-MM-DD"}}"{{#if archive}} data-rg-year="{{date format="YYYY"}}" data-rg-tags="{{#foreach tags}}{{slug}} {{/foreach}}" data-rg-title="{{title}}"{{/if}}>
+    <span class="rg-row__week"><span class="rg-sr">{{t "Week"}} </span>{{date format="[S]WW"}}</span>
+    <time class="rg-row__date" datetime="{{date format="YYYY-MM-DD"}}">{{date format="DD.MM.YYYY"}}</time>
+    <span class="rg-row__title">
+        <a class="rg-row__link" href="{{url}}">{{title}}</a>
+        <span class="rg-badge" data-rg-new hidden>{{t "new"}}</span>
+    </span>
+    <span class="rg-row__tags">{{#if tags}}<span class="rg-sr">{{t "Topics:"}} </span>{{tags separator=" · " autolink="false"}}{{/if}}</span>
+    <span class="rg-row__time"><span class="rg-sr">{{t "Reading time:"}} </span>{{reading_time minute=(t "1 min") minutes=(t "% min")}}</span>
+    <span class="rg-row__arrow" aria-hidden="true">→</span>
+</li>

@@ -1,11 +1,43 @@
 {{!< default}}
 
-<div class="gh-container">
-    <div class="gh-postfeed">
-        {{#foreach posts visibility="all"}}
-        <a class="{{post_class}}" href="{{url}}">
-            <time datetime="{{date format="YYYY-MM-DD"}}">{{date format="D MMM, YYYY"}}</time> - <span>{{title}}</span>
-        </a>
-        {{/foreach}}
+{{#is "paged"}}
+    <section class="rg-wrap rg-hero rg-hero--small" aria-labelledby="rg-hero-title">
+        <p class="rg-crumbs"><a href="{{@site.url}}">§ {{@site.title}}</a></p>
+        <h1 class="rg-hero__title rg-hero__title--md" id="rg-hero-title">{{t "Letters"}}<sup class="rg-hero__count">({{pagination.total}})</sup></h1>
+    </section>
+{{else}}
+    <section class="rg-wrap rg-hero" aria-labelledby="rg-hero-title">
+        <h1 class="rg-hero__title" id="rg-hero-title">{{@site.title}}<sup class="rg-hero__count">({{pagination.total}})</sup></h1>
+        <div class="rg-hero__aside">
+            {{#if @site.description}}<p class="rg-hero__desc">{{@site.description}}</p>{{/if}}
+            <dl class="rg-hero__meta">
+                {{#if @custom.jour_de_parution}}<div><dt>{{t "Published on"}}</dt><dd>{{@custom.jour_de_parution}}</dd></div>{{/if}}
+                <div><dt>{{t "Letters"}}</dt><dd>{{pagination.total}}</dd></div>
+                <div><dt>{{t "Formats"}}</dt><dd>{{t "web · e-mail · RSS"}}</dd></div>
+            </dl>
+        </div>
+    </section>
+
+    {{#foreach posts limit="1"}}
+        <div class="rg-wrap">{{> "latest-letter"}}</div>
+    {{/foreach}}
+{{/is}}
+
+<section class="rg-wrap rg-listing" aria-labelledby="rg-listing-title">
+    <aside class="rg-side" aria-label="{{t "Browse"}}">
+        {{> "rubriques"}}
+        {{> "archives-link"}}
+    </aside>
+    <div class="rg-listing__main">
+        <div class="rg-listing__head">
+            <h2 class="rg-listing__title" id="rg-listing-title">{{#is "paged"}}{{t "Page {page} of {totalPages}" page=pagination.page totalPages=pagination.pages}}{{else}}{{t "All letters"}}{{/is}}</h2>
+        </div>
+        {{> "letter-index"}}
+        <ol class="rg-index">
+            {{#foreach posts}}
+                {{> "letter-row"}}
+            {{/foreach}}
+        </ol>
+        {{pagination}}
     </div>
-</div>
+</section>
