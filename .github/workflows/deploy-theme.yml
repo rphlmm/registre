@@ -42,7 +42,7 @@ jobs:
           persist-credentials: false
 
       - name: Deploy theme
-        uses: TryGhost/action-deploy-theme@a0ee1147d15641db25681e54549c4db9a53c2629
+        uses: TryGhost/action-deploy-theme@b1ff2a5eeac1d5438a0aab35eb996fe4010d889e # v2.0.4
         with:
           api-url: ${{ secrets.GHOST_ADMIN_API_URL }}
           api-key: ${{ secrets.GHOST_ADMIN_API_KEY }}
