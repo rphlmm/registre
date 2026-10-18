@@ -26,6 +26,12 @@ Run the test command before committing when templates, assets, translations, dep
 - No server-side custom helpers exist in Ghost themes: logic that Ghost helpers cannot express goes in `assets/js/registre.js`, as progressive enhancement.
 - Fonts are self-hosted in `assets/fonts/` (SIL OFL); do not load fonts from third-party hosts.
 
+## Dependencies
+
+- Renovate (`renovate.json`) handles GitHub Actions, devDependencies and the pnpm version. Keep `automerge` off: merging into `main` deploys the theme to the live site with the Ghost Admin API key.
+- GitHub Actions are pinned by commit SHA with a `# vX.Y.Z` comment.
+- `pnpm-workspace.yaml` sets `minimumReleaseAge` to 7 days (10080 minutes); keep it aligned with `minimumReleaseAge` in `renovate.json`.
+
 ## Local testing
 
 - Do not symlink this folder into a Ghost install located under the system temp directory (`/tmp`): when Ghost validates a theme there, GScan deletes ignored files (`.git`, `node_modules`, `AGENTS.md`, `CLAUDE.md`) through the symlink. Copy the folder instead, or keep Ghost outside `/tmp`.

@@ -85,7 +85,12 @@ Le workflow `.github/workflows/deploy-theme.yml` (hérité de Zap) teste puis en
 
 ### Mises à jour des outils
 
-Dependabot (`.github/dependabot.yml`) ouvre chaque lundi une seule demande de fusion qui regroupe les nouvelles versions des outils GitHub Actions, au moins sept jours après leur sortie. Le test GScan tourne sur cette demande ; la fusionner déclenche le déploiement. `gscan` et `bestzip` se mettent à jour à la main (`pnpm update --latest`), car Dependabot ne gère pas encore pnpm 12.
+[Renovate](https://docs.renovatebot.com) suit les outils GitHub Actions, `gscan`, `bestzip` et la version de pnpm. Sa configuration est dans `renovate.json` ; il faut installer l’application [Renovate](https://github.com/apps/renovate) sur le dépôt pour qu’il tourne.
+
+- Le lundi matin, une seule demande de fusion regroupe toutes les nouvelles versions, au moins sept jours après leur sortie. Le 1er du mois, une seconde demande rafraîchit `pnpm-lock.yaml`.
+- Rien n’est fusionné automatiquement : fusionner sur `main` déploie le thème sur le site, et l’outil de déploiement reçoit la clé d’administration de Ghost. Le test GScan tourne sur chaque demande ; relisez-la avant de fusionner.
+- Le ticket « Tableau de bord des dépendances » liste ce qui est en attente.
+- `pnpm-workspace.yaml` fixe aussi `minimumReleaseAge` à sept jours, pour que pnpm lui-même (en local comme dans Renovate) n’installe pas de version trop récente.
 
 ## Structure
 

@@ -1,3 +1,6 @@
 # pnpm v11 stores dependency build-script approvals here.
 allowBuilds:
   dtrace-provider: true
+
+# Attendre 7 jours (en minutes) avant d’installer une version publiée sur npm.
+minimumReleaseAge: 10080

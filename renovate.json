@@ -1,0 +1,24 @@
+{
+    "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+    "description": "registre : une demande de mise à jour groupée le lundi matin, après 7 jours d'attente, jamais fusionnée automatiquement (une fusion sur main déploie le thème sur interlettre.info).",
+    "extends": [
+        "config:best-practices",
+        "group:all",
+        ":semanticCommitsDisabled"
+    ],
+    "timezone": "Europe/Paris",
+    "schedule": [
+        "* 5-8 * * 1"
+    ],
+    "minimumReleaseAge": "7 days",
+    "internalChecksFilter": "strict",
+    "automerge": false,
+    "lockFileMaintenance": {
+        "enabled": true,
+        "automerge": false,
+        "schedule": [
+            "* 5-8 1 * *"
+        ]
+    },
+    "dependencyDashboardTitle": "Tableau de bord des dépendances"
+}
