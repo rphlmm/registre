@@ -1,0 +1,23 @@
+# Mises à jour des outils GitHub Actions utilisés par les workflows.
+# Les versions sont figées par SHA ; Dependabot met à jour le SHA et le
+# commentaire « # vX.Y.Z », regroupés dans une seule demande par semaine.
+#
+# Les dépendances pnpm (gscan, bestzip) ne sont pas suivies : Dependabot
+# ne prend en charge que pnpm 7 à 10, et ce dépôt utilise pnpm 12.
+version: 2
+updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "07:00"
+      timezone: "Europe/Paris"
+    cooldown:
+      default-days: 7
+    groups:
+      github-actions:
+        patterns:
+          - "*"
+    commit-message:
+      prefix: "ci"

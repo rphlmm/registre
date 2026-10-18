@@ -83,6 +83,10 @@ Pour travailler en direct, liez le dossier dans `content/themes/` d’un Ghost l
 
 Le workflow `.github/workflows/deploy-theme.yml` (hérité de Zap) teste puis envoie le thème sur votre Ghost à chaque push sur `main`. Créez une intégration personnalisée dans Ghost (Settings › Integrations), puis ajoutez deux secrets au dépôt GitHub : `GHOST_ADMIN_API_URL` (ex. `https://interlettre.info`) et `GHOST_ADMIN_API_KEY`.
 
+### Mises à jour des outils
+
+Dependabot (`.github/dependabot.yml`) ouvre chaque lundi une seule demande de fusion qui regroupe les nouvelles versions des outils GitHub Actions, au moins sept jours après leur sortie. Le test GScan tourne sur cette demande ; la fusionner déclenche le déploiement. `gscan` et `bestzip` se mettent à jour à la main (`pnpm update --latest`), car Dependabot ne gère pas encore pnpm 12.
+
 ## Structure
 
 ```
