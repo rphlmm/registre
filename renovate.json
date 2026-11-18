@@ -20,5 +20,7 @@
             "* 5-8 1 * *"
         ]
     },
-    "dependencyDashboardTitle": "Tableau de bord des dépendances"
+    "dependencyDashboard": {
+        "title": "Tableau de bord des dépendances"
+    }
 }
